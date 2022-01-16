@@ -1,10 +1,10 @@
 package jp.ac.uryukyu.ie.e215719;
+
+import jp.ac.uryukyu.ie.e215719.common.GameException;
 import static jp.ac.uryukyu.ie.e215719.common.GameException.GameError.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import jp.ac.uryukyu.ie.e215719.common.GameException;
 
 public class Board {
     

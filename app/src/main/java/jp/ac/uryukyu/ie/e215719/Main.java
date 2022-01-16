@@ -1,7 +1,8 @@
 package jp.ac.uryukyu.ie.e215719;
-import java.util.Scanner;
 
 import jp.ac.uryukyu.ie.e215719.common.GameException;
+
+import java.util.Scanner;
 
 public class Main {
     public static final String PROMPT_FORMAT = "%sの番です。%dターン目>";
@@ -28,7 +29,7 @@ public class Main {
                 System.out.println(line);
                 try {
                     board.move(line); //駒を動かす
-                } catch (GameException ex) {
+                } catch (GameException ex) { //例外処理
                     System.out.println("エラー: " + ex.getMessage());
                 }
             }

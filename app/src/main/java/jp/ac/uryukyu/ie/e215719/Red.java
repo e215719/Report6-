@@ -1,4 +1,5 @@
 package jp.ac.uryukyu.ie.e215719;
+
 public class Red extends Piece{ //赤の駒
 
     public Red(int x, int y, boolean color) {

@@ -1,4 +1,5 @@
 package jp.ac.uryukyu.ie.e215719;
+
 public abstract class Piece {
 
     private int x; //x座標
