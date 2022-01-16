@@ -6,12 +6,23 @@ import static jp.ac.uryukyu.ie.e215719.common.GameException.GameError.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * 盤クラス。
+ *  ArrayList<Piece> pieces; //駒のリスト
+ *  String[][] gameboard; //盤の情報
+ *  int counter; //ターンの情報
+ */
 public class Board {
     
     public static ArrayList<Piece> pieces;
     public String[][] gameboard;
-    public static int counter = 1; //ターン情報
+    public static int counter = 1;
 
+    /**
+     * コンストラクタ。駒、盤情報、駒の初期位置を指定する。
+     * @param pieces 駒のリスト
+     * @param gameboard 盤の情報
+     */
     public Board() {
         this.pieces = new ArrayList<>(); //駒のリスト
         this.gameboard = new String[3][3]; //盤情報リスト
@@ -23,7 +34,10 @@ public class Board {
         pieces.add(new Blue(2, 2, false));
     }
 
-    public String getDisplayString() { //盤を作成する
+    /**
+    * 盤を作成するメソッド。
+    */
+    public String getDisplayString() {
         for (int j=0; j<3; j++) { //盤情報をnullに
             for (int i=0; i<3; i++) {
                 gameboard[i][j] = null;
@@ -73,8 +87,12 @@ public class Board {
         return sb.toString();
     }
 
-    public void move(String moveText) throws GameException { //駒を動かす
-        final String REGEX = "[a-c][1-3],[a-c][1-3]";
+    /**
+    * 駒を動かすメソッド。
+    * @param moveText 入力した文
+    */
+    public void move(String moveText) throws GameException {
+        final String REGEX = "[a-c][1-3],[a-c][1-3]"; //正規表現
         if (moveText.matches(REGEX) == false) {
             throw new GameException(MOVE_PARSE_ERROR);
         }
@@ -111,8 +129,13 @@ public class Board {
             throw new GameException(NO_PIECE_TO_MOVE);
         }
     }
-    
-    public static boolean chackPiece(int x, int y) { //その座標にある駒を判別する
+
+    /**
+    * 駒が存在するか判定するメソッド。
+    * @param x x座標
+    * @param y y座標
+    */
+    public static boolean chackPiece(int x, int y) {
         for (int a=0; a<pieces.size(); a++) {
             if (pieces.get(a).getX()==x && pieces.get(a).getY()==y) {
                 return true;
@@ -121,7 +144,12 @@ public class Board {
         return false;
     }
 
-    public int grabPiece(int x, int y) { //駒を掴む
+    /**
+    * 駒を掴むメソッド。
+    * @param x x座標
+    * @param y y座標
+    */
+    public int grabPiece(int x, int y) {
         for (int a=0; a<pieces.size(); a++) {
             if (pieces.get(a).getX()==x && pieces.get(a).getY()==y) {
                 return a;
@@ -130,14 +158,26 @@ public class Board {
         return 9; //エラー解決
     }
 
-    public boolean isRedTurn() { //赤のターンか判定する
+    /**
+    * どちらのターンか判定するメソッド。
+    * trueなら赤のターン、falseなら青のターン。
+    */
+    public boolean isRedTurn() {
         return counter % 2 == 1;
     }
 
-    public int getMoveCount() { //ターンをカウントする
+    /**
+    * ターンをカウントするメソッド。
+    * 1人づつターンをカウントする。
+    */
+    public int getMoveCount() {
         return (int) Math.floor((counter + 1) / 2);
     }
 
+    /**
+    * 勝ち負けを判定するメソッド。
+    * ルールに従って盤の状況が勝ちの条件を満たしているか調べる。
+    */
     public boolean end() { //盤の状況が勝ちの条件を満たしているか判定する
         if ( Objects.equals(gameboard[0][0], "R") && Objects.equals(gameboard[0][1], "R") && Objects.equals(gameboard[0][2], "R")||
              Objects.equals(gameboard[1][0], "R") && Objects.equals(gameboard[1][1], "R") && Objects.equals(gameboard[1][2], "R")||

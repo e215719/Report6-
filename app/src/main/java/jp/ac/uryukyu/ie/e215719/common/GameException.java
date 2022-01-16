@@ -1,4 +1,9 @@
 package jp.ac.uryukyu.ie.e215719.common;
+
+/**
+ * 例外クラス。
+ *  GameError error; //エラー名の列挙
+ */
 public class GameException extends Exception {
 
     private final GameError error;
@@ -6,8 +11,8 @@ public class GameException extends Exception {
         MOVE_PARSE_ERROR,
         NO_PIECE_TO_MOVE,
         CANNOT_MOVE_OPPONENTS_PIECE,
-        CANNOT_MOVE_OBSTACLE,
-        MOVE_RULE_VIOLATION
+        MOVE_RULE_VIOLATION,
+        CANNOT_MOVE_OBSTACLE
     }
     
     public GameException(GameError error) {
@@ -15,6 +20,11 @@ public class GameException extends Exception {
         this.error = error;
     }
 
+    /**
+    * 駒が存在するか判定するメソッド。
+    * @param x x座標
+    * @param y y座標
+    */
     @Override
     public String getMessage() {
         switch (error) {
@@ -24,10 +34,10 @@ public class GameException extends Exception {
                 return "そこに駒はありません";
             case CANNOT_MOVE_OPPONENTS_PIECE:
                 return "自分の駒ではありません";
-            case CANNOT_MOVE_OBSTACLE:
-                return "他の駒があります";
             case MOVE_RULE_VIOLATION:
                 return "この駒はそこに移動できない";
+            case CANNOT_MOVE_OBSTACLE:
+                return "他の駒があります";
             default:
                 throw new AssertionError(error.name());
         }
